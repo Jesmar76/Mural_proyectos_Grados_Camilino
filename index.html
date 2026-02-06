@@ -64,7 +64,7 @@
             color: var(--amarillo-secundario);
         }
         
-        /* Área del logo - CORREGIDA */
+        /* Área del logo - MEJORADO */
         .logo-area {
             display: flex;
             flex-direction: column;
@@ -90,16 +90,20 @@
             margin-bottom: 25px;
             box-shadow: 0 0 30px rgba(251, 191, 36, 0.5);
             overflow: hidden;
-            padding: 5px; /* Espacio interno para que la imagen no toque los bordes */
+            padding: 8px; /* Espacio interno para que la imagen no toque el borde */
         }
         
         .sello img {
             width: 100%;
             height: 100%;
-            object-fit: contain; /* Cambiado de cover a contain para ver toda la imagen */
+            object-fit: contain; /* Cambiado a contain para ver toda la imagen */
             border-radius: 50%;
             background-color: white; /* Fondo blanco para imágenes con transparencia */
-            padding: 10px; /* Espacio interno */
+        }
+        
+        .sello .icono-respaldo {
+            font-size: 5rem;
+            color: var(--amarillo-principal);
         }
         
         .nombre-colegio {
@@ -113,77 +117,121 @@
             margin-bottom: 20px;
         }
         
-        /* Tabla de proyectos */
-        .tabla-proyectos {
+        /* Tarjetas de recursos */
+        .recursos-titulo {
+            font-size: 2rem;
+            color: var(--azul-principal);
+            text-align: center;
+            margin: 30px 0;
+            position: relative;
+        }
+        
+        .recursos-titulo:after {
+            content: "";
+            position: absolute;
+            width: 150px;
+            height: 4px;
+            background-color: var(--amarillo-principal);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .recursos-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 3 columnas fijas */
+            gap: 30px;
             width: 100%;
-            margin: 30px 0 50px 0;
-            border-collapse: collapse;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            margin-bottom: 50px;
+        }
+        
+        .recurso-card {
+            background-color: var(--blanco);
             border-radius: 15px;
             overflow: hidden;
-            background-color: var(--blanco);
-        }
-        
-        .tabla-proyectos th {
-            background-color: var(--azul-principal);
-            color: var(--blanco);
-            padding: 20px;
-            text-align: center;
-            font-size: 1.3rem;
-            border-bottom: 4px solid var(--amarillo-principal);
-        }
-        
-        .tabla-proyectos td {
-            padding: 25px;
-            text-align: center;
-            border: 1px solid var(--azul-claro);
-            vertical-align: middle;
-            transition: all 0.3s ease;
-        }
-        
-        .tabla-proyectos tr:nth-child(even) {
-            background-color: var(--gris-claro);
-        }
-        
-        .tabla-proyectos tr:hover td {
-            background-color: var(--amarillo-secundario);
-            transform: translateY(-2px);
-        }
-        
-        .celda-proyecto {
-            height: 150px;
-        }
-        
-        .enlace-proyecto {
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            color: var(--azul-principal);
-            font-weight: 600;
-            font-size: 1.1rem;
-            height: 100%;
-            transition: all 0.3s ease;
-            padding: 15px;
-            border-radius: 10px;
         }
         
-        .enlace-proyecto:hover {
-            background-color: var(--amarillo-principal);
-            color: var(--azul-principal);
+        .recurso-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .recurso-imagen {
+            height: 180px;
+            overflow: hidden;
+        }
+        
+        .recurso-imagen img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .recurso-card:hover .recurso-imagen img {
             transform: scale(1.05);
         }
         
-        .icono-proyecto {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-            color: var(--azul-secundario);
+        .recurso-contenido {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
         }
         
-        .enlace-proyecto:hover .icono-proyecto {
+        .recurso-categoria {
+            display: inline-block;
+            background-color: var(--azul-secundario);
+            color: var(--blanco);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            align-self: flex-start;
+        }
+        
+        .recurso-categoria.salud {
+            background-color: #10b981;
+        }
+        
+        .recurso-categoria.tech {
+            background-color: var(--azul-principal);
+        }
+        
+        .recurso-titulo {
+            font-size: 1.3rem;
             color: var(--azul-principal);
-            transform: rotate(10deg);
+            margin-bottom: 10px;
+        }
+        
+        .recurso-descripcion {
+            color: #4b5563;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 15px;
+            flex-grow: 1;
+        }
+        
+        .recurso-link {
+            display: inline-block;
+            background-color: var(--amarillo-principal);
+            color: var(--azul-principal);
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .recurso-link:hover {
+            background-color: var(--azul-principal);
+            color: var(--amarillo-principal);
         }
         
         /* Footer */
@@ -207,6 +255,12 @@
         }
         
         /* Responsividad */
+        @media (max-width: 1024px) {
+            .recursos-grid {
+                grid-template-columns: repeat(2, 1fr); /* 2 columnas en tablets */
+            }
+        }
+        
         @media (max-width: 768px) {
             h1 {
                 font-size: 2rem;
@@ -216,19 +270,8 @@
                 font-size: 1.5rem;
             }
             
-            .tabla-proyectos {
-                display: block;
-                overflow-x: auto;
-            }
-            
-            .tabla-proyectos th,
-            .tabla-proyectos td {
-                padding: 15px 10px;
-                font-size: 0.9rem;
-            }
-            
-            .icono-proyecto {
-                font-size: 2rem;
+            .recursos-grid {
+                grid-template-columns: 1fr; /* 1 columna en móviles */
             }
             
             .logo-area {
@@ -239,6 +282,10 @@
             .sello {
                 width: 150px;
                 height: 150px;
+            }
+            
+            .sello .icono-respaldo {
+                font-size: 4rem;
             }
         }
     </style>
@@ -252,90 +299,94 @@
         
         <div class="logo-area">
             <div class="sello">
-                <img src="logo.jpg" alt="Logo de la Unidad Educativa Dr. Camilo Gallegos Domínguez" onerror="this.style.display='none'; this.parentElement.innerHTML='<i class=\"fas fa-graduation-cap\" style=\"font-size: 5rem; color: #fbbf24;\"></i>';">
+                <img src="logo.jpg" alt="Logo de la Unidad Educativa Dr. Camilo Gallegos Domínguez" 
+                     onerror="this.onerror=null; this.style.display='none'; this.parentElement.innerHTML='<i class=\"fas fa-graduation-cap icono-respaldo\"></i>';">
             </div>
             <div class="nombre-colegio">UNIDAD EDUCATIVA "DR. CAMILO GALLEGOS DOMÍNGUEZ"</div>
         </div>
+                
+        <h2 class="recursos-titulo">PROYECTOS DE GRADO 2025 - 2026</h2>
         
-        <h2 class="recursos-titulo" style="font-size: 2rem; color: var(--azul-principal); text-align: center; margin: 30px 0; position: relative;">
-            PROYECTOS DE GRADO 2025 - 2026
-            <span style="content: ''; position: absolute; width: 150px; height: 4px; background-color: var(--amarillo-principal); bottom: -10px; left: 50%; transform: translateX(-50%);"></span>
-        </h2>
-        
-        <!-- Tabla de 3x3 para proyectos -->
-        <table class="tabla-proyectos">
-            <thead>
-                <tr>
-                    <th colspan="3">PROYECTOS DE INVESTIGACIÓN</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Fila 1 -->
-                <tr>
-                    <td class="celda-proyecto">
-                        <a href="https://sites.google.com/view/proyec-grado-saludmental/mis-emociones" target="_blank" class="enlace-proyecto">
-                            <i class="fas fa-brain icono-proyecto"></i>
-                            <span>Proyecto Salud Mental</span>
-                        </a>
-                    </td>
-                    <td class="celda-proyecto">
-                        <a href="https://jesmar76.github.io/proyectos_grados_camilo/" target="_blank" class="enlace-proyecto">
-                            <i class="fas fa-laptop-code icono-proyecto"></i>
-                            <span>Proyectos Tecnológicos</span>
-                        </a>
-                    </td>
-                    <td class="celda-proyecto">
-                        <a href="#" target="_blank" class="enlace-proyecto">
-                            <i class="fas fa-flask icono-proyecto"></i>
-                            <span>Proyecto Científico 1</span>
-                        </a>
-                    </td>
-                </tr>
-                <!-- Fila 2 -->
-                <tr>
-                    <td class="celda-proyecto">
-                        <a href="#" target="_blank" class="enlace-proyecto">
-                            <i class="fas fa-robot icono-proyecto"></i>
-                            <span>Robótica Educativa</span>
-                        </a>
-                    </td>
-                    <td class="celda-proyecto">
-                        <a href="#" target="_blank" class="enlace-proyecto">
-                            <i class="fas fa-seedling icono-proyecto"></i>
-                            <span>Proyecto Ambiental</span>
-                        </a>
-                    </td>
-                    <td class="celda-proyecto">
-                        <a href="#" target="_blank" class="enlace-proyecto">
-                            <i class="fas fa-chart-line icono-proyecto"></i>
-                            <span>Estadística Aplicada</span>
-                        </a>
-                    </td>
-                </tr>
-                <!-- Fila 3 -->
-                <tr>
-                    <td class="celda-proyecto">
-                        <a href="#" target="_blank" class="enlace-proyecto">
-                            <i class="fas fa-history icono-proyecto"></i>
-                            <span>Investigación Histórica</span>
-                        </a>
-                    </td>
-                    <td class="celda-proyecto">
-                        <a href="#" target="_blank" class="enlace-proyecto">
-                            <i class="fas fa-microscope icono-proyecto"></i>
-                            <span>Biología Molecular</span>
-                        </a>
-                    </td>
-                    <td class="celda-proyecto">
-                        <a href="#" target="_blank" class="enlace-proyecto">
-                            <i class="fas fa-gamepad icono-proyecto"></i>
-                            <span>Videojuegos Educativos</span>
-                        </a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        
+        <div class="recursos-grid">
+            <!-- Proyecto 1 -->
+            <div class="recurso-card">
+                <div class="recurso-imagen">
+                    <img src="mental.jpg" alt="Salud Mental y Emociones" onerror="this.src='https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80'">
+                </div>
+                <div class="recurso-contenido">
+                    <span class="recurso-categoria salud">Salud Mental</span>
+                    <h3 class="recurso-titulo">Mis Emociones</h3>
+                    <p class="recurso-descripcion">Material educativo sobre salud mental, gestión emocional y bienestar psicológico.</p>
+                    <a href="https://sites.google.com/view/proyec-grado-saludmental/mis-emociones" target="_blank" class="recurso-link">Acceder al Recurso</a>
+                </div>
+            </div>
+            
+            <!-- Proyecto 2 -->
+            <div class="recurso-card">
+                <div class="recurso-imagen">
+                    <img src="mural.jpg" alt="Proyectos de Informática" onerror="this.src='https://images.unsplash.com/photo-1515879218367-8466d910aaa4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80'">
+                </div>
+                <div class="recurso-contenido">
+                    <span class="recurso-categoria tech">Tecnología</span>
+                    <h3 class="recurso-titulo">Proyectos de Grado</h3>
+                    <p class="recurso-descripcion">Recopilación de proyectos de grado desarrollados por estudiantes.</p>
+                    <a href="https://jesmar76.github.io/proyectos_grados_camilo/" target="_blank" class="recurso-link">Acceder al Recurso</a>
+                </div>
+            </div>
+            
+            <!-- Proyecto 3 -->
+            <div class="recurso-card">
+                <div class="recurso-imagen">
+                    <img src="https://www.ameci.org/blog/images/hack_iran.gif" alt="Ciberseguridad">
+                </div>
+                <div class="recurso-contenido">
+                    <span class="recurso-categoria tech">Ciberseguridad</span>
+                    <h3 class="recurso-titulo">Seguridad Digital</h3>
+                    <p class="recurso-descripcion">Proyecto sobre protección de datos y seguridad en entornos digitales.</p>
+                    <a href="https://esencia1spa.my.canva.site/proyecto-de-grado" target="_blank" class="recurso-link">Acceder al Recurso</a>
+                </div>
+            </div>
+            
+            <!-- Proyecto 4 -->
+            <div class="recurso-card">
+                <div class="recurso-imagen">
+                    <img src="https://api.institutoiea.org/1746725232887-f5507303-6d01-45e4-a8f3-77e900c067a9.png" alt="Educación Digital">
+                </div>
+                <div class="recurso-contenido">
+                    <span class="recurso-categoria tech">Educación</span>
+                    <h3 class="recurso-titulo">Plataforma Educativa</h3>
+                    <p class="recurso-descripcion">Portal educativo con recursos digitales para el aprendizaje en línea.</p>
+                    <a href="https://sites.google.com/d/1TwGrPmiX97yR7-DTqrsRHxJ2qMnThOo_/p/1_cNq5aIdti9XrgEheTe-Swal8h7NtnK9/edit" target="_blank" class="recurso-link">Acceder al Recurso</a>
+                </div>
+            </div>
+            
+            <!-- Proyecto 5 -->
+            <div class="recurso-card">
+                <div class="recurso-imagen">
+                    <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Tecnología Educativa">
+                </div>
+                <div class="recurso-contenido">
+                    <span class="recurso-categoria tech">Innovación</span>
+                    <h3 class="recurso-titulo">Tecnología Educativa</h3>
+                    <p class="recurso-descripcion">Uso de herramientas tecnológicas para mejorar el proceso de enseñanza.</p>
+                    <a href="#" target="_blank" class="recurso-link">Acceder al Recurso</a>
+                </div>
+            </div>
+            
+            <!-- Proyecto 6 (espacio para futuro proyecto) -->
+            <div class="recurso-card">
+                <div class="recurso-imagen">
+                    <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Programación">
+                </div>
+                <div class="recurso-contenido">
+                    <span class="recurso-categoria tech">Programación</span>
+                    <h3 class="recurso-titulo">Desarrollo Web</h3>
+                    <p class="recurso-descripcion">Proyectos de desarrollo web y aplicaciones educativas.</p>
+                    <a href="#" target="_blank" class="recurso-link">Acceder al Recurso</a>
+                </div>
+            </div>
+        </div>
+
         <footer>
             <p class="footer-texto">UNIDAD EDUCATIVA "DR. CAMILO GALLEGOS DOMÍNGUEZ"</p>
             <p class="footer-texto">Educación de calidad en tecnología, informática y desarrollo integral</p>
@@ -344,9 +395,18 @@
     </div>
 
     <script>
-        // Efecto de aparición gradual para las celdas de la tabla
         document.addEventListener('DOMContentLoaded', function() {
-            const celdas = document.querySelectorAll('.celda-proyecto');
+            const cards = document.querySelectorAll('.recurso-card');
+            
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-10px)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
             
             const observerOptions = {
                 threshold: 0.1,
@@ -354,23 +414,21 @@
             };
             
             const observer = new IntersectionObserver(function(entries) {
-                entries.forEach((entry, index) => {
+                entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        setTimeout(() => {
-                            entry.target.style.opacity = '1';
-                            entry.target.style.transform = 'translateY(0)';
-                        }, index * 100);
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
                     }
                 });
             }, observerOptions);
             
-            // Aplicar estilos iniciales y observar cada celda
-            celdas.forEach((celda, index) => {
-                celda.style.opacity = '0';
-                celda.style.transform = 'translateY(20px)';
-                celda.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                card.style.transitionDelay = (index * 0.1) + 's';
                 
-                observer.observe(celda);
+                observer.observe(card);
             });
         });
     </script>
