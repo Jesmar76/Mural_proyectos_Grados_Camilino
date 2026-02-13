@@ -453,6 +453,28 @@
                 grid-template-columns: 1fr;
             }
         }
+            .sello {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            display: grid;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle, var(--azul-principal) 0%, var(--azul-secundario) 100%);
+            border: 8px solid var(--amarillo-principal);
+            margin-bottom: 25px;
+            box-shadow: 0 0 30px rgba(251, 191, 36, 0.5);
+            overflow: hidden;
+            padding: 8px; /* Espacio interno para que la imagen no toque el borde */
+        }
+        
+        .sello img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* Cambiado a contain para ver toda la imagen */
+            border-radius: 50%;
+            background-color: white; /* Fondo blanco para imágenes con transparencia */
+        }
     </style>
 </head>
 <body>
