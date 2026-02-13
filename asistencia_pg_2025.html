@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unidad Educativa Dr. Camilo Gallegos Dominguez - Asistencia</title>
+    <!-- Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Flatpickr para calendario -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0052cc 0%, #ffc107 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,82,204,0.3);
+            overflow: hidden;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .header {
+            background: linear-gradient(135deg, #0052cc 0%, #003d99 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 5px solid #ffc107;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,193,7,0.2) 0%, transparent 70%);
+            animation: pulse 10s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.2); opacity: 0.8; }
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header h2 {
+            font-size: 1.2em;
+            font-weight: 300;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .fecha-section {
+            background: #f0f7ff;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            border-bottom: 2px solid #ffc107;
+        }
+
+        .fecha-label {
+            font-size: 1.1em;
+            color: #0052cc;
+            font-weight: 600;
+        }
+
+        .fecha-input {
+            padding: 10px 15px;
+            border: 2px solid #0052cc;
+            border-radius: 10px;
+            font-size: 1em;
+            transition: all 0.3s;
+        }
+
+        .fecha-input:focus {
+            border-color: #ffc107;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(255,193,7,0.2);
+        }
+
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            padding: 30px;
+        }
+
+        .cursos-section {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .curso-card {
+            background: #f0f7ff;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,82,204,0.1);
+            transition: transform 0.3s;
+            border-left: 5px solid #0052cc;
+        }
+
+        .curso-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(255,193,7,0.3);
+        }
+
+        .curso-card h3 {
+            color: #003d99;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.3em;
+        }
+
+        .curso-card h3 i {
+            color: #ffc107;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .input-group input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 2px solid #0052cc;
+            border-radius: 10px;
+            font-size: 0.95em;
+            transition: all 0.3s;
+        }
+
+        .input-group input:focus {
+            border-color: #ffc107;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(255,193,7,0.2);
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 10px;
+            font-size: 0.95em;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+            color: white;
+        }
+
+        .btn i {
+            font-size: 1.1em;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #0052cc 0%, #003d99 100%);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,82,204,0.4);
+        }
+
+        .btn-warning {
+            background: linear-gradient(135deg, #ffc107 0%, #ffb300 100%);
+            color: #003d99;
+        }
+
+        .btn-warning:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255,193,7,0.4);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #dc3545 0%, #bb2d3b 100%);
+        }
+
+        .btn-danger:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(220,53,69,0.4);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%);
+        }
+
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(40,167,69,0.4);
+        }
+
+        .btn-info {
+            background: linear-gradient(135deg, #17a2b8 0%, #117a8b 100%);
+        }
+
+        .btn-info:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(23,162,184,0.4);
+        }
+
+        .select-curso {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #0052cc;
+            border-radius: 10px;
+            font-size: 0.95em;
+            margin-bottom: 20px;
+            background: white;
+            cursor: pointer;
+        }
+
+        .select-curso:focus {
+            border-color: #ffc107;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(255,193,7,0.2);
+        }
+
+        .lista-container {
+            background: #f0f7ff;
+            padding: 25px;
+            border-radius: 15px;
+            border: 2px solid #0052cc;
+        }
+
+        .lista-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .lista-header h3 {
+            color: #003d99;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .lista-estudiantes {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .estudiante-item {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            animation: fadeIn 0.3s ease-out;
+            border-left: 5px solid;
+            box-shadow: 0 2px 5px rgba(0,82,204,0.1);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .estudiante-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(255,193,7,0.3);
+        }
+
+        .estudiante-item.presente {
+            border-left-color: #28a745;
+            background: linear-gradient(to right, rgba(40,167,69,0.1), white);
+        }
+
+        .estudiante-item.ausente {
+            border-left-color: #dc3545;
+            background: linear-gradient(to right, rgba(220,53,69,0.1), white);
+        }
+
+        .estudiante-info h4 {
+            color: #003d99;
+            margin-bottom: 5px;
+        }
+
+        .estudiante-info p {
+            color: #6c757d;
+            font-size: 0.85em;
+        }
+
+        .estudiante-estado {
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+
+        .presente .estudiante-estado {
+            background: rgba(40,167,69,0.2);
+            color: #28a745;
+        }
+
+        .ausente .estudiante-estado {
+            background: rgba(220,53,69,0.2);
+            color: #dc3545;
+        }
+
+        .ausentes-section {
+            background: linear-gradient(135deg, #fff3e0 0%, #fff9c4 100%);
+            padding: 25px;
+            border-radius: 15px;
+            border: 2px solid #ffc107;
+        }
+
+        .ausentes-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .ausentes-header h3 {
+            color: #003d99;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .lista-ausentes {
+            max-height: 300px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+        }
+
+        .ausente-item {
+            background: white;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            border-left: 5px solid #dc3545;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .badge {
+            background: #0052cc;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8em;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,82,204,0.2);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            animation: slideInRight 0.3s ease-out;
+            z-index: 1000;
+            border-left: 5px solid;
+        }
+
+        .toast.success {
+            border-left-color: #28a745;
+        }
+
+        .toast.info {
+            border-left-color: #17a2b8;
+        }
+
+        .toast.warning {
+            border-left-color: #ffc107;
+        }
+
+        .toast.error {
+            border-left-color: #dc3545;
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #6c757d;
+        }
+
+        .empty-state i {
+            font-size: 3em;
+            margin-bottom: 15px;
+            opacity: 0.5;
+        }
+
+        .footer {
+            background: #0052cc;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            border-top: 5px solid #ffc107;
+        }
+
+        @media (max-width: 992px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>📚 UNIDAD EDUCATIVA</h1>
+            <h2>DR. CAMILO GALLEGOS DOMINGUEZ</h2>
+            <p style="margin-top: 15px; font-size: 1.2em; color: #ffc107; font-weight: bold;">Sistema de Asistencia de Estudiantes</p>
+        </div>
+
+        <!-- Sección de Fecha -->
+        <div class="fecha-section">
+            <span class="fecha-label"><i class="fas fa-calendar-alt" style="color: #ffc107;"></i> Fecha de Asistencia:</span>
+            <input type="text" id="fecha" class="fecha-input" placeholder="Selecciona una fecha">
+            <span class="badge">✓ Todos los estudiantes se agregan con estado: PRESENTE</span>
+        </div>
+
+        <!-- Grid Principal -->
+        <div class="main-grid">
+            <!-- Columna Izquierda: Cursos y Lista -->
+            <div>
+                <!-- Sección de Cursos -->
+                <div class="cursos-section">
+                    <div class="curso-card">
+                        <h3><i class="fas fa-plus-circle"></i> Crear Nuevo Curso</h3>
+                        <div class="input-group">
+                            <input type="text" id="nuevoCurso" placeholder="Ej: 3ro Básico A">
+                            <button class="btn btn-primary" onclick="crearCurso()">
+                                <i class="fas fa-plus"></i> Crear
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="curso-card">
+                        <h3><i class="fas fa-folder-open"></i> Gestionar Curso</h3>
+                        <select id="selectorCurso" class="select-curso">
+                            <option value="">Selecciona un curso</option>
+                        </select>
+                        <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                            <button class="btn btn-primary" style="flex: 1;" onclick="seleccionarCurso()">
+                                <i class="fas fa-check"></i> Seleccionar
+                            </button>
+                            <button class="btn btn-danger" style="flex: 1;" onclick="eliminarCurso()">
+                                <i class="fas fa-trash"></i> Eliminar
+                            </button>
+                        </div>
+                        <button class="btn btn-warning" style="width: 100%;" onclick="tomarListaManual()">
+                            <i class="fas fa-clipboard-list"></i> TOMAR LISTA MANUAL (Marcar Ausentes)
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Lista de Estudiantes -->
+                <div class="lista-container" style="margin-top: 30px;">
+                    <div class="lista-header">
+                        <h3><i class="fas fa-users" style="color: #ffc107;"></i> Estudiantes del Curso</h3>
+                        <span id="contadorEstudiantes" style="background: #0052cc; color: white; padding: 5px 15px; border-radius: 20px; font-size: 0.9em;">0 estudiantes</span>
+                    </div>
+                    <div id="listaEstudiantes" class="lista-estudiantes">
+                        <div class="empty-state">
+                            <i class="fas fa-users-slash"></i>
+                            <p>No hay estudiantes en este curso</p>
+                            <p style="font-size: 0.9em; margin-top: 10px;">Agrega estudiantes con el botón "Agregar Estudiante"</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Botones de acción debajo de la lista -->
+                    <div style="display: flex; gap: 10px; margin-top: 20px;">
+                        <button class="btn btn-success" style="flex: 1;" onclick="agregarEstudiante()">
+                            <i class="fas fa-user-plus"></i> Agregar
+                        </button>
+                        <button class="btn btn-primary" style="flex: 1;" onclick="importarExcel()">
+                            <i class="fas fa-file-excel"></i> Importar
+                        </button>
+                        <button class="btn btn-danger" style="flex: 1;" onclick="eliminarEstudiante()">
+                            <i class="fas fa-user-minus"></i> Eliminar
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Columna Derecha: Ausentes y Descargas -->
+            <div>
+                <!-- Vista Previa de Ausentes -->
+                <div class="ausentes-section">
+                    <div class="ausentes-header">
+                        <h3><i class="fas fa-user-slash" style="color: #dc3545;"></i> Estudiantes AUSENTES</h3>
+                        <span id="contadorAusentes" style="background: #dc3545; color: white; padding: 5px 15px; border-radius: 20px; font-size: 0.9em;">0 ausentes</span>
+                    </div>
+                    
+                    <div id="listaAusentes" class="lista-ausentes">
+                        <div class="empty-state">
+                            <i class="fas fa-check-circle" style="color: #28a745;"></i>
+                            <p>¡Todos los estudiantes están presentes!</p>
+                        </div>
+                    </div>
+
+                    <!-- Botones de Descarga y Guardado -->
+                    <div style="display: flex; flex-direction: column; gap: 15px; margin-top: 20px;">
+                        <button class="btn btn-warning" onclick="descargarAusentes()">
+                            <i class="fas fa-download"></i> Descargar Lista de Ausentes (TXT)
+                        </button>
+                        
+                        <button class="btn btn-primary" onclick="descargarAusentesPDF()">
+                            <i class="fas fa-file-pdf"></i> Descargar Lista de Ausentes (PDF)
+                        </button>
+                        
+                        <button class="btn btn-info" onclick="guardarDatos()">
+                            <i class="fas fa-save"></i> Guardar Datos Permanentemente
+                        </button>
+                        
+                        <button class="btn btn-success" onclick="exportarTodo()">
+                            <i class="fas fa-file-export"></i> Exportar Todo (Excel)
+                        </button>
+                    </div>
+
+                    <!-- Indicador de persistencia -->
+                    <div style="margin-top: 20px; padding: 10px; background: rgba(0,82,204,0.1); border-radius: 8px; text-align: center;">
+                        <i class="fas fa-database" style="color: #0052cc;"></i>
+                        <span style="color: #003d99; font-size: 0.9em;"> Los datos se guardan automáticamente en tu navegador</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p><i class="fas fa-school"></i> Unidad Educativa Dr. Camilo Gallegos Dominguez - Sistema de Asistencia v2.0</p>
+            <p style="font-size: 0.8em; margin-top: 5px; opacity: 0.9;">Todos los estudiantes se registran como PRESENTE por defecto. Use "Tomar Lista Manual" para marcar ausentes.</p>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script>
+        // Estado de la aplicación
+        let cursos = {};
+        let cursoActual = '';
+        let estudianteSeleccionado = null;
+
+        // Inicializar calendario
+        flatpickr("#fecha", {
+            dateFormat: "Y-m-d",
+            defaultDate: new Date(),
+            locale: 'es'
+        });
+
+        // ========== PERSISTENCIA DE DATOS ==========
+        function cargarDatosGuardados() {
+            const datosGuardados = localStorage.getItem('asistenciaCursos');
+            if (datosGuardados) {
+                try {
+                    cursos = JSON.parse(datosGuardados);
+                    mostrarToast('Datos cargados correctamente', 'success');
+                } catch (e) {
+                    console.error('Error al cargar datos:', e);
+                    cursos = {};
+                }
+            }
+            actualizarMenuCursos();
+        }
+
+        function guardarDatos() {
+            localStorage.setItem('asistenciaCursos', JSON.stringify(cursos));
+            mostrarToast('✅ Todos los datos han sido guardados permanentemente', 'success');
+        }
+
+        // ========== FUNCIONES DE NOTIFICACIÓN ==========
+        function mostrarToast(mensaje, tipo = 'success') {
+            const toast = document.createElement('div');
+            toast.className = `toast ${tipo}`;
+            
+            let icono = 'check-circle';
+            if (tipo === 'error') icono = 'exclamation-circle';
+            if (tipo === 'warning') icono = 'exclamation-triangle';
+            if (tipo === 'info') icono = 'info-circle';
+            
+            toast.innerHTML = `
+                <i class="fas fa-${icono}" style="color: ${tipo === 'success' ? '#28a745' : tipo === 'error' ? '#dc3545' : tipo === 'warning' ? '#ffc107' : '#17a2b8'};"></i>
+                <span>${mensaje}</span>
+            `;
+            
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.animation = 'slideInRight 0.3s reverse';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // ========== FUNCIONES DE CURSOS ==========
+        function actualizarMenuCursos() {
+            const selector = document.getElementById('selectorCurso');
+            selector.innerHTML = '<option value="">Selecciona un curso</option>';
+            
+            Object.keys(cursos).sort().forEach(curso => {
+                const option = document.createElement('option');
+                option.value = curso;
+                option.textContent = `${curso} (${cursos[curso].length} estudiantes)`;
+                selector.appendChild(option);
+            });
+        }
+
+        function crearCurso() {
+            const nuevoCurso = document.getElementById('nuevoCurso').value.trim();
+            
+            if (!nuevoCurso) {
+                mostrarToast('Por favor ingresa un nombre para el curso', 'warning');
+                return;
+            }
+            
+            if (cursos[nuevoCurso]) {
+                mostrarToast('El curso ya existe', 'info');
+                return;
+            }
+            
+            cursos[nuevoCurso] = [];
+            document.getElementById('nuevoCurso').value = '';
+            actualizarMenuCursos();
+            guardarDatos(); // Guardar automáticamente
+            mostrarToast('¡Curso creado exitosamente!', 'success');
+        }
+
+        function seleccionarCurso() {
+            const selector = document.getElementById('selectorCurso');
+            cursoActual = selector.value;
+            
+            if (!cursoActual) {
+                mostrarToast('Por favor selecciona un curso', 'warning');
+                return;
+            }
+            
+            actualizarListaEstudiantes();
+            actualizarListaAusentes();
+            estudianteSeleccionado = null;
+            mostrarToast(`Curso "${cursoActual}" seleccionado`, 'info');
+        }
+
+        function eliminarCurso() {
+            if (!cursoActual) {
+                mostrarToast('Selecciona un curso primero', 'warning');
+                return;
+            }
+            
+            if (confirm(`¿Estás seguro de eliminar el curso "${cursoActual}"?`)) {
+                delete cursos[cursoActual];
+                cursoActual = '';
+                actualizarMenuCursos();
+                actualizarListaEstudiantes();
+                actualizarListaAusentes();
+                guardarDatos();
+                mostrarToast('Curso eliminado correctamente', 'success');
+            }
+        }
+
+        // ========== FUNCIONES DE ESTUDIANTES ==========
+        function actualizarListaEstudiantes() {
+            const contenedor = document.getElementById('listaEstudiantes');
+            const contador = document.getElementById('contadorEstudiantes');
+            
+            if (!cursoActual || !cursos[cursoActual] || cursos[cursoActual].length === 0) {
+                contenedor.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-users-slash"></i>
+                        <p>No hay estudiantes en este curso</p>
+                        <p style="font-size: 0.9em; margin-top: 10px;">Agrega estudiantes usando el botón "Agregar"</p>
+                    </div>
+                `;
+                contador.textContent = '0 estudiantes';
+                return;
+            }
+
+            contador.textContent = `${cursos[cursoActual].length} estudiantes`;
+            
+            contenedor.innerHTML = cursos[cursoActual].map((estudiante, index) => {
+                const estado = estudiante.asistencia === 'Presente' ? 'presente' : 'ausente';
+                const estadoTexto = estudiante.asistencia === 'Presente' ? '✓ PRESENTE' : '✗ AUSENTE';
+                const fecha = estudiante.fecha || document.getElementById('fecha').value;
+                
+                return `
+                    <div class="estudiante-item ${estado}" onclick="seleccionarEstudiante(${index})" data-index="${index}">
+                        <div class="estudiante-info">
+                            <h4>${estudiante.nombre}</h4>
+                            <p><i class="fas fa-calendar-alt"></i> ${fecha}</p>
+                        </div>
+                        <span class="estudiante-estado">${estadoTexto}</span>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function actualizarListaAusentes() {
+            const contenedor = document.getElementById('listaAusentes');
+            const contador = document.getElementById('contadorAusentes');
+            
+            if (!cursoActual || !cursos[cursoActual]) {
+                contenedor.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-users-slash"></i>
+                        <p>Selecciona un curso primero</p>
+                    </div>
+                `;
+                contador.textContent = '0 ausentes';
+                return;
+            }
+
+            const ausentes = cursos[cursoActual].filter(est => est.asistencia === 'Ausente');
+            contador.textContent = `${ausentes.length} ausentes`;
+
+            if (ausentes.length === 0) {
+                contenedor.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-check-circle" style="color: #28a745; font-size: 3em;"></i>
+                        <p style="color: #28a745; font-weight: bold;">¡Todos los estudiantes están presentes!</p>
+                        <p style="font-size: 0.9em;">Use "Tomar Lista Manual" para marcar ausentes</p>
+                    </div>
+                `;
+            } else {
+                contenedor.innerHTML = ausentes.map((est, index) => `
+                    <div class="ausente-item">
+                        <div>
+                            <strong style="color: #003d99;">${est.nombre}</strong>
+                            <p style="font-size: 0.8em; color: #6c757d; margin-top: 3px;">
+                                <i class="fas fa-calendar-alt"></i> ${est.fecha || document.getElementById('fecha').value}
+                            </p>
+                        </div>
+                        <span style="background: #dc3545; color: white; padding: 3px 10px; border-radius: 15px; font-size: 0.75em;">
+                            AUSENTE
+                        </span>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function seleccionarEstudiante(index) {
+            estudianteSeleccionado = index;
+            
+            document.querySelectorAll('.estudiante-item').forEach(item => {
+                item.style.transform = '';
+                item.style.boxShadow = '';
+            });
+            
+            const elemento = document.querySelector(`.estudiante-item[data-index="${index}"]`);
+            if (elemento) {
+                elemento.style.transform = 'translateX(10px)';
+                elemento.style.boxShadow = '0 5px 20px rgba(255,193,7,0.4)';
+            }
+        }
+
+        function agregarEstudiante() {
+            if (!cursoActual) {
+                mostrarToast('Selecciona un curso primero', 'warning');
+                return;
+            }
+            
+            const nombre = prompt('Ingresa el nombre del estudiante:');
+            if (nombre && nombre.trim()) {
+                cursos[cursoActual].push({
+                    nombre: nombre.trim(),
+                    asistencia: 'Presente', // SIEMPRE PRESENTE POR DEFECTO
+                    fecha: document.getElementById('fecha').value
+                });
+                actualizarListaEstudiantes();
+                actualizarListaAusentes();
+                guardarDatos(); // Guardar automáticamente
+                mostrarToast(`✓ ${nombre.trim()} agregado como PRESENTE`, 'success');
+            }
+        }
+
+        function importarExcel() {
+            if (!cursoActual) {
+                mostrarToast('Selecciona un curso primero', 'warning');
+                return;
+            }
+            
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.xlsx, .xls';
+            
+            input.onchange = function(e) {
+                const file = e.target.files[0];
+                const reader = new FileReader();
+                
+                reader.onload = function(loadEvent) {
+                    try {
+                        const data = new Uint8Array(loadEvent.target.result);
+                        const workbook = XLSX.read(data, { type: 'array' });
+                        const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
+                        const jsonData = XLSX.utils.sheet_to_json(firstSheet);
+                        
+                        let contador = 0;
+                        jsonData.forEach(row => {
+                            if (row.Nombre) {
+                                cursos[cursoActual].push({
+                                    nombre: String(row.Nombre),
+                                    asistencia: 'Presente', // SIEMPRE PRESENTE POR DEFECTO
+                                    fecha: document.getElementById('fecha').value
+                                });
+                                contador++;
+                            }
+                        });
+                        
+                        actualizarListaEstudiantes();
+                        actualizarListaAusentes();
+                        guardarDatos();
+                        mostrarToast(`✓ ${contador} estudiantes importados como PRESENTES`, 'success');
+                        
+                    } catch (error) {
+                        mostrarToast('Error al leer el archivo Excel', 'error');
+                    }
+                };
+                
+                reader.readAsArrayBuffer(file);
+            };
+            
+            input.click();
+        }
+
+        // ========== TOMAR LISTA MANUAL ==========
+        function tomarListaManual() {
+            if (!cursoActual) {
+                mostrarToast('Selecciona un curso primero', 'warning');
+                return;
+            }
+
+            if (!cursos[cursoActual] || cursos[cursoActual].length === 0) {
+                mostrarToast('No hay estudiantes en este curso', 'warning');
+                return;
+            }
+
+            // Crear diálogo personalizado para tomar lista
+            const listaHTML = cursos[cursoActual].map((est, index) => {
+                const checked = est.asistencia === 'Ausente' ? 'checked' : '';
+                return `
+                    <div style="display: flex; align-items: center; padding: 8px; border-bottom: 1px solid #dee2e6;">
+                        <input type="checkbox" id="ausente_${index}" ${checked} style="width: 20px; height: 20px; margin-right: 15px;">
+                        <label for="ausente_${index}" style="flex: 1; font-size: 1.1em;">${est.nombre}</label>
+                        <span style="color: #6c757d; font-size: 0.9em;">${est.asistencia}</span>
+                    </div>
+                `;
+            }).join('');
+
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.5);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 2000;
+            `;
+
+            modal.innerHTML = `
+                <div style="background: white; padding: 30px; border-radius: 20px; max-width: 600px; width: 90%; max-height: 80vh; overflow-y: auto; border: 3px solid #ffc107;">
+                    <h2 style="color: #0052cc; margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-clipboard-list" style="color: #ffc107;"></i> 
+                        Tomar Lista - ${cursoActual}
+                    </h2>
+                    <p style="background: #f0f7ff; padding: 10px; border-radius: 8px; margin-bottom: 20px;">
+                        <i class="fas fa-info-circle" style="color: #0052cc;"></i>
+                        Marca los estudiantes que están <strong>AUSENTES</strong>
+                    </p>
+                    <div style="margin-bottom: 20px;">
+                        ${listaHTML}
+                    </div>
+                    <div style="display: flex; gap: 10px; justify-content: flex-end;">
+                        <button id="cancelarLista" class="btn btn-danger">
+                            <i class="fas fa-times"></i> Cancelar
+                        </button>
+                        <button id="guardarLista" class="btn btn-success">
+                            <i class="fas fa-save"></i> Guardar Asistencia
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            document.body.appendChild(modal);
+
+            document.getElementById('cancelarLista').onclick = () => {
+                modal.remove();
+            };
+
+            document.getElementById('guardarLista').onclick = () => {
+                // Primero, poner todos como Presente
+                cursos[cursoActual].forEach(est => {
+                    est.asistencia = 'Presente';
+                });
+
+                // Luego, marcar como Ausente los que están checkeados
+                const checkboxes = modal.querySelectorAll('input[type="checkbox"]');
+                checkboxes.forEach((checkbox, index) => {
+                    if (checkbox.checked) {
+                        cursos[cursoActual][index].asistencia = 'Ausente';
+                    }
+                });
+
+                actualizarListaEstudiantes();
+                actualizarListaAusentes();
+                guardarDatos();
+                modal.remove();
+                
+                const ausentesCount = cursos[cursoActual].filter(est => est.asistencia === 'Ausente').length;
+                mostrarToast(`✅ Lista guardada: ${ausentesCount} ausente(s) marcado(s)`, 'success');
+            };
+        }
+
+        function eliminarEstudiante() {
+            if (!cursoActual) {
+                mostrarToast('Selecciona un curso primero', 'warning');
+                return;
+            }
+            
+            if (estudianteSeleccionado === null) {
+                mostrarToast('Selecciona un estudiante de la lista', 'warning');
+                return;
+            }
+            
+            const estudiante = cursos[cursoActual][estudianteSeleccionado];
+            
+            if (confirm(`¿Estás seguro de eliminar a ${estudiante.nombre}?`)) {
+                cursos[cursoActual].splice(estudianteSeleccionado, 1);
+                estudianteSeleccionado = null;
+                actualizarListaEstudiantes();
+                actualizarListaAusentes();
+                guardarDatos();
+                mostrarToast('Estudiante eliminado correctamente', 'success');
+            }
+        }
+
+        // ========== FUNCIONES DE DESCARGA ==========
+        function descargarAusentes() {
+            if (!cursoActual || !cursos[cursoActual]) {
+                mostrarToast('Selecciona un curso primero', 'warning');
+                return;
+            }
+
+            const ausentes = cursos[cursoActual].filter(est => est.asistencia === 'Ausente');
+            
+            if (ausentes.length === 0) {
+                mostrarToast('No hay estudiantes ausentes', 'info');
+                return;
+            }
+
+            const fecha = document.getElementById('fecha').value;
+            let contenido = `LISTA DE ESTUDIANTES AUSENTES\n`;
+            contenido += `==============================\n`;
+            contenido += `Curso: ${cursoActual}\n`;
+            contenido += `Fecha: ${fecha}\n`;
+            contenido += `Total Ausentes: ${ausentes.length}\n`;
+            contenido += `==============================\n\n`;
+            
+            ausentes.forEach((est, index) => {
+                contenido += `${index + 1}. ${est.nombre}\n`;
+            });
+
+            const blob = new Blob([contenido], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `ausentes_${cursoActual}_${fecha}.txt`;
+            a.click();
+            
+            mostrarToast(`📄 Lista de ausentes descargada`, 'success');
+        }
+
+        function descargarAusentesPDF() {
+            if (!cursoActual || !cursos[cursoActual]) {
+                mostrarToast('Selecciona un curso primero', 'warning');
+                return;
+            }
+
+            const ausentes = cursos[cursoActual].filter(est => est.asistencia === 'Ausente');
+            
+            if (ausentes.length === 0) {
+                mostrarToast('No hay estudiantes ausentes', 'info');
+                return;
+            }
+
+            const fecha = document.getElementById('fecha').value;
+            
+            // Usar jsPDF
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            doc.setFontSize(18);
+            doc.setTextColor(0, 82, 204);
+            doc.text('UNIDAD EDUCATIVA DR. CAMILO GALLEGOS DOMINGUEZ', 20, 20);
+            
+            doc.setFontSize(14);
+            doc.setTextColor(255, 193, 7);
+            doc.text('LISTA DE ESTUDIANTES AUSENTES', 20, 35);
+            
+            doc.setFontSize(12);
+            doc.setTextColor(0, 0, 0);
+            doc.text(`Curso: ${cursoActual}`, 20, 50);
+            doc.text(`Fecha: ${fecha}`, 20, 60);
+            doc.text(`Total Ausentes: ${ausentes.length}`, 20, 70);
+            
+            doc.line(20, 75, 190, 75);
+            
+            let y = 85;
+            ausentes.forEach((est, index) => {
+                doc.text(`${index + 1}. ${est.nombre}`, 20, y);
+                y += 8;
+                
+                if (y > 280) {
+                    doc.addPage();
+                    y = 20;
+                }
+            });
+            
+            doc.save(`ausentes_${cursoActual}_${fecha}.pdf`);
+            mostrarToast(`📑 PDF de ausentes generado`, 'success');
+        }
+
+        function exportarTodo() {
+            if (Object.keys(cursos).length === 0) {
+                mostrarToast('No hay datos para exportar', 'warning');
+                return;
+            }
+
+            const fecha = document.getElementById('fecha').value;
+            let datos = [];
+            
+            Object.keys(cursos).forEach(curso => {
+                cursos[curso].forEach(est => {
+                    datos.push({
+                        Curso: curso,
+                        Estudiante: est.nombre,
+                        Asistencia: est.asistencia,
+                        Fecha: est.fecha || fecha
+                    });
+                });
+            });
+
+            const wb = XLSX.utils.book_new();
+            const ws = XLSX.utils.json_to_sheet(datos);
+            XLSX.utils.book_append_sheet(wb, ws, 'Asistencia');
+            XLSX.writeFile(wb, `asistencia_completa_${fecha}.xlsx`);
+            
+            mostrarToast('📊 Datos exportados a Excel', 'success');
+        }
+
+        // ========== INICIALIZACIÓN ==========
+        window.onload = function() {
+            // Cargar datos guardados primero
+            cargarDatosGuardados();
+            
+            // Si no hay datos guardados, cargar ejemplo
+            if (Object.keys(cursos).length === 0) {
+                cursos = {
+                    '3ro Básico A': [
+                        { nombre: 'Ana Pérez', asistencia: 'Presente', fecha: '2024-01-15' },
+                        { nombre: 'Juan López', asistencia: 'Presente', fecha: '2024-01-15' },
+                        { nombre: 'María García', asistencia: 'Presente', fecha: '2024-01-15' }
+                    ],
+                    '4to Básico B': [
+                        { nombre: 'Carlos Rodríguez', asistencia: 'Presente', fecha: '2024-01-15' }
+                    ]
+                };
+                guardarDatos();
+            }
+            
+            actualizarMenuCursos();
+            mostrarToast('🎓 ¡Bienvenido! Los datos se guardan automáticamente', 'success');
+        };
+    </script>
+</body>
+</html>
