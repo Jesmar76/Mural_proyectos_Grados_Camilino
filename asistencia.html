@@ -46,7 +46,7 @@
         .header {
             background: linear-gradient(135deg, #0052cc 0%, #003d99 100%);
             color: white;
-            padding: 30px;
+            padding: 20px;
             text-align: center;
             position: relative;
             overflow: hidden;
@@ -69,17 +69,50 @@
             50% { transform: scale(1.2); opacity: 0.8; }
         }
 
-        .header h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
+        .logo-area {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             position: relative;
             z-index: 1;
         }
 
-        .header h2 {
-            font-size: 1.2em;
-            font-weight: 300;
-            opacity: 0.9;
+        .sello {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle, #0052cc 0%, #003d99 100%);
+            border: 6px solid #ffc107;
+            margin-bottom: 15px;
+            box-shadow: 0 0 30px rgba(251, 191, 36, 0.5);
+            overflow: hidden;
+            padding: 5px;
+        }
+        
+        .sello img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 50%;
+            background-color: white;
+        }
+
+        .icono-respaldo {
+            font-size: 60px;
+            color: #ffc107;
+            display: block;
+        }
+
+        .nombre-colegio {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: white;
+            margin-top: 5px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            letter-spacing: 1px;
             position: relative;
             z-index: 1;
         }
@@ -92,6 +125,7 @@
             justify-content: center;
             gap: 20px;
             border-bottom: 2px solid #ffc107;
+            flex-wrap: wrap;
         }
 
         .fecha-label {
@@ -453,44 +487,37 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        @media (max-width: 480px) {
             .sello {
-            width: 180px;
-            height: 180px;
-            border-radius: 50%;
-            display: grid;
-            align-items: center;
-            justify-content: center;
-            background: radial-gradient(circle, var(--azul-principal) 0%, var(--azul-secundario) 100%);
-            border: 8px solid var(--amarillo-principal);
-            margin-bottom: 25px;
-            box-shadow: 0 0 30px rgba(251, 191, 36, 0.5);
-            overflow: hidden;
-            padding: 8px; /* Espacio interno para que la imagen no toque el borde */
-        }
-        
-        .sello img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain; /* Cambiado a contain para ver toda la imagen */
-            border-radius: 50%;
-            background-color: white; /* Fondo blanco para imágenes con transparencia */
+                width: 100px;
+                height: 100px;
+                border-width: 4px;
+            }
+            
+            .nombre-colegio {
+                font-size: 1em;
+            }
+            
+            .fecha-section {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-    <!-- Header -->
-    <div class="header">
-        <div class="logo-area">
-            <div class="sello">
-                <img src="logo.jpg" alt="Logo de la Unidad Educativa Dr. Camilo Gallegos Domínguez" 
-                onerror="this.onerror=null; this.style.display='none'; this.insertAdjacentHTML('afterend', '<i class=\'fas fa-graduation-cap icono-respaldo\'></i>');">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo-area">
+                <div class="sello">
+                    <img src="logo.jpg" alt="Logo de la Unidad Educativa Dr. Camilo Gallegos Domínguez" 
+                    onerror="this.onerror=null; this.style.display='none'; this.insertAdjacentHTML('afterend', '<i class=\'fas fa-graduation-cap icono-respaldo\'></i>');">
+                </div>
                 <div class="nombre-colegio">UNIDAD EDUCATIVA "DR. CAMILO GALLEGOS DOMÍNGUEZ"</div>
-             </div>  
-            <p style="margin-top: 15px; font-size: 1.2em; color: #ffc107; font-weight: bold;">Sistema de Asistencia de Estudiantes</p>
-         </div> 
-      </div>
-      </div>
+                <p style="margin-top: 15px; font-size: 1.2em; color: #ffc107; font-weight: bold;">Sistema de Asistencia de Estudiantes</p>
+            </div> 
+        </div>
 
         <!-- Sección de Fecha -->
         <div class="fecha-section">
@@ -703,7 +730,7 @@
             cursos[nuevoCurso] = [];
             document.getElementById('nuevoCurso').value = '';
             actualizarMenuCursos();
-            guardarDatos(); // Guardar automáticamente
+            guardarDatos();
             mostrarToast('¡Curso creado exitosamente!', 'success');
         }
 
@@ -843,12 +870,12 @@
             if (nombre && nombre.trim()) {
                 cursos[cursoActual].push({
                     nombre: nombre.trim(),
-                    asistencia: 'Presente', // SIEMPRE PRESENTE POR DEFECTO
+                    asistencia: 'Presente',
                     fecha: document.getElementById('fecha').value
                 });
                 actualizarListaEstudiantes();
                 actualizarListaAusentes();
-                guardarDatos(); // Guardar automáticamente
+                guardarDatos();
                 mostrarToast(`✓ ${nombre.trim()} agregado como PRESENTE`, 'success');
             }
         }
@@ -879,7 +906,7 @@
                             if (row.Nombre) {
                                 cursos[cursoActual].push({
                                     nombre: String(row.Nombre),
-                                    asistencia: 'Presente', // SIEMPRE PRESENTE POR DEFECTO
+                                    asistencia: 'Presente',
                                     fecha: document.getElementById('fecha').value
                                 });
                                 contador++;
@@ -902,7 +929,6 @@
             input.click();
         }
 
-        // ========== TOMAR LISTA MANUAL ==========
         function tomarListaManual() {
             if (!cursoActual) {
                 mostrarToast('Selecciona un curso primero', 'warning');
@@ -914,7 +940,6 @@
                 return;
             }
 
-            // Crear diálogo personalizado para tomar lista
             const listaHTML = cursos[cursoActual].map((est, index) => {
                 const checked = est.asistencia === 'Ausente' ? 'checked' : '';
                 return `
@@ -971,12 +996,10 @@
             };
 
             document.getElementById('guardarLista').onclick = () => {
-                // Primero, poner todos como Presente
                 cursos[cursoActual].forEach(est => {
                     est.asistencia = 'Presente';
                 });
 
-                // Luego, marcar como Ausente los que están checkeados
                 const checkboxes = modal.querySelectorAll('input[type="checkbox"]');
                 checkboxes.forEach((checkbox, index) => {
                     if (checkbox.checked) {
@@ -1017,7 +1040,6 @@
             }
         }
 
-        // ========== FUNCIONES DE DESCARGA ==========
         function descargarAusentes() {
             if (!cursoActual || !cursos[cursoActual]) {
                 mostrarToast('Selecciona un curso primero', 'warning');
@@ -1068,7 +1090,6 @@
 
             const fecha = document.getElementById('fecha').value;
             
-            // Usar jsPDF
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
             
@@ -1131,12 +1152,9 @@
             mostrarToast('📊 Datos exportados a Excel', 'success');
         }
 
-        // ========== INICIALIZACIÓN ==========
         window.onload = function() {
-            // Cargar datos guardados primero
             cargarDatosGuardados();
             
-            // Si no hay datos guardados, cargar ejemplo
             if (Object.keys(cursos).length === 0) {
                 cursos = {
                     '3ro Básico A': [
